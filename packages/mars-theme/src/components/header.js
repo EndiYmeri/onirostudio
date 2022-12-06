@@ -1,19 +1,30 @@
 import { connect, styled } from "frontity";
 import Link from "./link";
-import Nav from "./nav";
 import MobileMenu from "./menu";
+import logo from "../assets/logo.svg"
 
 const Header = ({ state }) => {
+  console.log("Header state:", state.source)
+  let pageTitle 
+
+  if(state.source.painting_cat){
+    // pageTitle = state.source.painting_cat["3"].name
+  }
   return (
     <>
       <Container>
         <StyledLink link="/">
-          <Title>{state.frontity.title}</Title>
+          <Logo src={logo} />
         </StyledLink>
-        <Description>{state.frontity.description}</Description>
-        <MobileMenu />
+        <TitleCont>
+          <Title>{pageTitle}</Title>
+          </TitleCont>
+        {/* <MobileMenu /> */}
+        <HeaderDesc></HeaderDesc>
       </Container>
-      <Nav />
+      {/* <Nav /> */}
+
+
     </>
   );
 };
@@ -22,26 +33,39 @@ const Header = ({ state }) => {
 export default connect(Header);
 
 const Container = styled.div`
-  width: 848px;
-  max-width: 100%;
+  width: 100%;
   box-sizing: border-box;
-  padding: 24px;
-  color: #fff;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-`;
-
-const Title = styled.h2`
-  margin: 0;
-  margin-bottom: 16px;
-`;
-
-const Description = styled.h4`
-  margin: 0;
-  color: rgba(255, 255, 255, 0.7);
+  align-content: center;
+  flex-direction: row;
+  background-color: black;
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-`;
+  width: 45%;
+  padding: 2rem;
+`
+
+const Logo = styled.img`
+  height: 40px;
+  @media screen and (min-width: 768px) {
+            height: 60px;
+        };
+`
+const HeaderDesc = styled.p`
+  font-size: 24px;
+  color: black;
+`
+
+const TitleCont = styled.div`
+  width: 55%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+`
+
+const Title = styled.h1`
+font-size: 24px;
+  color: #FF4D00;
+`
