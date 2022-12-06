@@ -1,5 +1,5 @@
 import { styled } from "frontity"
-import React, { useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import Link from "../link";
 import logo from "../../assets/logo.svg"
 import heroImg from "../../assets/hero-blackish.jpg"
@@ -8,14 +8,14 @@ import ReactWhatsapp from 'react-whatsapp';
 // import {useMediaQuery} from 'react-responsive'
 import Item from "../list/list-item";
 import KristinaPaint from "../../assets/kristina-paint.jpg"
-    const Container = styled.div`
+const Container = styled.div`
         width: 100%;
         margin: 0;
         @media screen and (min-width: 768px) {
             /* padding: 131px 160px; */
         };
     `
-    const HeroSection = styled.div`
+const HeroSection = styled.div`
         background-image: url(${heroImg});
         background-repeat: no-repeat;
         background-size: cover;
@@ -27,7 +27,7 @@ import KristinaPaint from "../../assets/kristina-paint.jpg"
         place-items:center;
         color: white;
     `
-    const ActionButton = styled.button`
+const ActionButton = styled.button`
         background-color: #121A1C;
         color: #FFFFFF;
         border-radius: 50px;
@@ -52,24 +52,24 @@ import KristinaPaint from "../../assets/kristina-paint.jpg"
             left: 47%;
             transform: translate(-50%, -50%);
         }
-    ` 
-    const NormalText = styled.p`
+    `
+const NormalText = styled.p`
         font-size: 28px;
         line-height: 1.1;
         font-weight: 100;
         color: #121A1C;
         margin-bottom: 25px;
-    `  
-    const HeadingText = styled.h1`
+    `
+const HeadingText = styled.h1`
         font-family: "BagindaScript";
         font-size: 48px;
         font-weight: 200;
         line-height: 1.2;
     `
-    const StyledLink = styled(Link)`
+const StyledLink = styled(Link)`
      text-decoration: none;
     `
-    const Categories = styled.div`
+const Categories = styled.div`
         display: grid;
         grid-template-columns: auto;
         gap:10px;
@@ -83,23 +83,23 @@ import KristinaPaint from "../../assets/kristina-paint.jpg"
            }
         };
     `
-    const About = styled.div`
+const About = styled.div`
         color: white;
         display: grid;
         gap: 20px;
         padding: 1rem;
-    `  
+    `
 
-    const ImageCont = styled.div`
+const ImageCont = styled.div`
         width: 30%;
     `
 
-    const AboutImg = styled.img`
+const AboutImg = styled.img`
         width: 100%;
         max-width: 250px;
         margin: auto;
     `
-    const AboutTextCont = styled.div`
+const AboutTextCont = styled.div`
         display: grid;
         width: 100%;
         grid-template-columns: auto;
@@ -109,11 +109,11 @@ import KristinaPaint from "../../assets/kristina-paint.jpg"
         };
     `
 
-    const AboutText = styled.div`
+const AboutText = styled.div`
     padding: 1rem;
     `
 
-export function HomePage({state}) {
+export function HomePage({ state }) {
 
     let paint_cat = [
         {
@@ -241,38 +241,38 @@ export function HomePage({state}) {
             "name": "Enso Collection ( Minimal )",
             "slug": "enso-collection",
             "taxonomy": "painting_cat",
-            "meta": [ ],
+            "meta": [],
             "acf": {
-            "category_image": "https://admin.onirostudio.com/wp-content/uploads/2022/12/enso-cat-img-test.jpg"
+                "category_image": "https://admin.onirostudio.com/wp-content/uploads/2022/12/enso-cat-img-test.jpg"
             },
             "_links": {
-            "self": [
-            {
-            "href": "https://admin.onirostudio.com/wp-json/wp/v2/painting_cat/9"
-            }
-            ],
-            "collection": [
-            {
-            "href": "https://admin.onirostudio.com/wp-json/wp/v2/painting_cat"
-            }
-            ],
-            "about": [
-            {
-            "href": "https://admin.onirostudio.com/wp-json/wp/v2/taxonomies/painting_cat"
-            }
-            ],
-            "wp:post_type": [
-            {
-            "href": "https://admin.onirostudio.com/wp-json/wp/v2/painting?painting_cat=9"
-            }
-            ],
-            "curies": [
-            {
-            "name": "wp",
-            "href": "https://api.w.org/{rel}",
-            "templated": true
-            }
-            ]
+                "self": [
+                    {
+                        "href": "https://admin.onirostudio.com/wp-json/wp/v2/painting_cat/9"
+                    }
+                ],
+                "collection": [
+                    {
+                        "href": "https://admin.onirostudio.com/wp-json/wp/v2/painting_cat"
+                    }
+                ],
+                "about": [
+                    {
+                        "href": "https://admin.onirostudio.com/wp-json/wp/v2/taxonomies/painting_cat"
+                    }
+                ],
+                "wp:post_type": [
+                    {
+                        "href": "https://admin.onirostudio.com/wp-json/wp/v2/painting?painting_cat=9"
+                    }
+                ],
+                "curies": [
+                    {
+                        "name": "wp",
+                        "href": "https://api.w.org/{rel}",
+                        "templated": true
+                    }
+                ]
             }
         },
         {
@@ -283,52 +283,52 @@ export function HomePage({state}) {
             "name": "Portraits",
             "slug": "portraits",
             "taxonomy": "painting_cat",
-            "meta": [ ],
+            "meta": [],
             "acf": {
-            "category_image": "https://admin.onirostudio.com/wp-content/uploads/2022/12/mona-lisa.jpg"
+                "category_image": "https://admin.onirostudio.com/wp-content/uploads/2022/12/mona-lisa.jpg"
             },
             "_links": {
-            "self": [
-                {
-                "href": "https://admin.onirostudio.com/wp-json/wp/v2/painting_cat/8"
-                }
-            ],
-            "collection": [
-                {
-                "href": "https://admin.onirostudio.com/wp-json/wp/v2/painting_cat"
-                }
-            ],
-            "about": [
-                {
-                    "href": "https://admin.onirostudio.com/wp-json/wp/v2/taxonomies/painting_cat"
-                }
-            ],
+                "self": [
+                    {
+                        "href": "https://admin.onirostudio.com/wp-json/wp/v2/painting_cat/8"
+                    }
+                ],
+                "collection": [
+                    {
+                        "href": "https://admin.onirostudio.com/wp-json/wp/v2/painting_cat"
+                    }
+                ],
+                "about": [
+                    {
+                        "href": "https://admin.onirostudio.com/wp-json/wp/v2/taxonomies/painting_cat"
+                    }
+                ],
                 "wp:post_type": [
-            {
-              "href": "https://admin.onirostudio.com/wp-json/wp/v2/painting?painting_cat=8"
+                    {
+                        "href": "https://admin.onirostudio.com/wp-json/wp/v2/painting?painting_cat=8"
+                    }
+                ],
+                "curies": [
+                    {
+                        "name": "wp",
+                        "href": "https://api.w.org/{rel}",
+                        "templated": true
+                    }
+                ]
             }
-            ],
-            "curies": [
-                {
-                "name": "wp",
-                "href": "https://api.w.org/{rel}",
-                "templated": true
-                }
-            ]
-        }
-    },
-]
+        },
+    ]
     // console.log(props)
     return <Container>
         <HeroSection>
             <h1>
-                Unique art pieces for your interior <br/> since 2016
+                Unique art pieces for your interior <br /> since 2016
             </h1>
         </HeroSection>
         <Categories>
             {
                 paint_cat.map((painting => {
-                    return <ImageCont><Item key={painting.id} item={painting}/></ImageCont>
+                    return <ImageCont><Item key={painting.id} item={painting} /></ImageCont>
                 }))
             }
         </Categories>
