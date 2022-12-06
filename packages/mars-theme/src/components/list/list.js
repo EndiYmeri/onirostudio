@@ -1,15 +1,43 @@
 import { connect, styled, decode } from "frontity";
+import {useState, useEffect} from "react"
 import Item from "./list-item";
 import Pagination from "./pagination";
 
 const List = ({ state }) => {
+  console.log(state)
+  const [dataToShow, setDataToShow] = useState([])
   // Get the data of the current list.
+
   const data = state.source.get(state.router.link);
 
+  useEffect(()=>{
+    let dataToShowArray = []
+    
+    let dataReceived = {}
+
+   if(data.isPaintingCat){
+      dataReceived = state.source.painting
+      for(const item in dataReceived){
+        dataToShowArray.push(dataReceived[item])
+      }
+      setDataToShow(dataToShowArray)
+
+    }else if(data.isPaintingArchive){
+      dataReceived = state.source.painting_cat
+      for(const item in dataReceived){
+        dataToShowArray.push(dataReceived[item])
+      }
+      setDataToShow(dataToShowArray)
+    }
+  },[data])
+ // let categories = Object.values(categoriesObject)
+ // categories.sort(name => categories.name)
+ 
   return (
     <Container>
-      {/* If the list is a taxonomy, we render a title. */}
-      {data.isTaxonomy && (
+      {/* If the list is a taxonomy, we render a title. */} 
+      
+      {/* {data.isTaxonomy && (
         <Header>
           {data.taxonomy}:{" "}
           <b>{decode(state.source[data.taxonomy][data.id].name)}</b>
@@ -17,34 +45,40 @@ const List = ({ state }) => {
       )}
 
       {/* If the list is for a specific author, we render a title. */}
-      {data.isAuthor && (
-        <Header>
-          Author: <b>{decode(state.source.author[data.id].name)}</b>
-        </Header>
-      )}
-
+     
       {/* Iterate over the items of the list. */}
-      {data.items.map(({ type, id }) => {
-        const item = state.source[type][id];
-        // Render one Item component for each one.
-        return <Item key={item.id} item={item} />;
-      })}
-      <Pagination />
+      { 
+       dataToShow?.map((painting => {
+            return <Item key={painting.id} item={painting}/>
+        }))
+      }
+      {/* <Pagination /> */}
     </Container>
-  );
+  )
 };
 
-export default connect(List);
 
 const Container = styled.section`
-  width: 800px;
   margin: 0;
-  padding: 24px;
   list-style: none;
+  background-color: #000000;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
+  justify-content: center;
+  border-top: 1px solid black;
+
+  @media screen and (max-width: 768px) {
+   grid-template-columns: auto;
+  };
 `;
 
 const Header = styled.h3`
   font-weight: 300;
-  text-transform: capitalize;
-  color: rgba(12, 17, 43, 0.9);
+  /* text-transform: capitalize; */
+  color: #fff
 `;
+
+
+export default connect(List);
+
+

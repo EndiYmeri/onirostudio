@@ -3,6 +3,7 @@ import { connect, styled } from "frontity";
 import Link from "./link";
 import List from "./list";
 import FeaturedMedia from "./featured-media";
+import oniroCircle from "../assets/oniroCircle.svg"
 
 /**
  * The Post component that Mars uses to render any kind of "post type", like
@@ -28,10 +29,11 @@ const Post = ({ state, actions, libraries }) => {
   const data = state.source.get(state.router.link);
   // Get the data of the post.
   const post = state.source[data.type][data.id];
+  console.log({"postData": data, post})
   // Get the data of the author.
-  const author = state.source.author[post.author];
+  // const author = state.source.author[post.author];
   // Get a human readable date.
-  const date = new Date(post.date);
+  // const date = new Date(post.date);
 
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
@@ -46,47 +48,45 @@ const Post = ({ state, actions, libraries }) => {
     List.preload();
   }, [actions.source]);
 
+
+  const media = state.source.attachment[post.featured_media];
   // Load the post, but only if the data is ready.
   return data.isReady ? (
     <Container>
-      <div>
-        <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+      <RightSide>
+        {/* <img src={media.source_url} /> */}
+        <img src={post.acf.primary_image} />
+      </RightSide>
+      <LeftSide>
+        <div>
+          <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+        </div>
 
-        {/* Hide author and date on pages */}
-        {!data.isPage && (
-          <div>
-            {author && (
-              <StyledLink link={author.link}>
-                <Author>
-                  By <b>{author.name}</b>
-                </Author>
-              </StyledLink>
-            )}
-            <DateWrapper>
-              {" "}
-              on <b>{date.toDateString()}</b>
-            </DateWrapper>
-          </div>
+        {/* Look at the settings to see if we should include the featured image */}
+        {/* {state.theme.featured.showOnPost && (
+          <FeaturedMedia id={post.featured_media} />
+        )} */}
+
+        {data.isAttachment ? (
+          // If the post is an attachment, just render the description property,
+          // which already contains the thumbnail.
+          <div dangerouslySetInnerHTML={{ __html: post.description.rendered }} />
+        ) : (
+          // Render the content using the Html2React component so the HTML is
+          // processed by the processors we included in the
+          // libraries.html2react.processors array.
+          <Content>
+            {/* <Html2React html={post.content.rendered} /> */}
+          </Content>
         )}
-      </div>
+        <ActionButtonsContainer>
+          <ActionButton>DM</ActionButton>
+          <ActionButton>Whatsapp</ActionButton>
+        </ActionButtonsContainer>
+      </LeftSide>
+      <img src={post.acf.secondary_image} />
+      <img src={post.acf.secondary_image} />
 
-      {/* Look at the settings to see if we should include the featured image */}
-      {state.theme.featured.showOnPost && (
-        <FeaturedMedia id={post.featured_media} />
-      )}
-
-      {data.isAttachment ? (
-        // If the post is an attachment, just render the description property,
-        // which already contains the thumbnail.
-        <div dangerouslySetInnerHTML={{ __html: post.description.rendered }} />
-      ) : (
-        // Render the content using the Html2React component so the HTML is
-        // processed by the processors we included in the
-        // libraries.html2react.processors array.
-        <Content>
-          <Html2React html={post.content.rendered} />
-        </Content>
-      )}
     </Container>
   ) : null;
 };
@@ -94,32 +94,66 @@ const Post = ({ state, actions, libraries }) => {
 export default connect(Post);
 
 const Container = styled.div`
-  width: 800px;
+  padding: 1rem 0 10rem ;
+  width: 100%;
   margin: 0;
-  padding: 24px;
+  background-color: #000000;
+  display: grid;
+  grid-template-columns: auto;
+  gap: 20px;
+  place-items: center;
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 60% 40%;
+  };
 `;
+
+const RightSide = styled.div`
+  img{
+    width: 100%;
+  }
+`
+const LeftSide = styled.div`
+  max-width: 400px;
+`
+const ActionButton = styled.button`
+  background-color: #FF4D00;
+  color: #FFFFFF;
+  border-radius: 50px;
+  font-size: 18px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 135px;
+  border: none;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.1s ease;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  :hover{
+      color: #121A1C;
+      font-weight: 900;
+      background-color: transparent;
+      color: #FF4D00;
+      border:1px solid #FF4D00 ;
+  }
+ 
+` 
+const ActionButtonsContainer = styled.div`
+  margin-top: 5rem;
+  display: grid;
+  gap: 25px;
+  grid-auto-flow: column;
+  justify-content: start;
+`
+
+
 
 const Title = styled.h1`
   margin: 0;
   margin-top: 24px;
   margin-bottom: 8px;
-  color: rgba(12, 17, 43);
-`;
-
-const StyledLink = styled(Link)`
-  padding: 15px 0;
-`;
-
-const Author = styled.p`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-  display: inline;
-`;
-
-const DateWrapper = styled.p`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-  display: inline;
+  color: #fff;
 `;
 
 /**
@@ -135,7 +169,9 @@ const Content = styled.div`
   }
 
   p {
-    line-height: 1.6em;
+    line-height: 28.2px;
+    font-weight: 100;
+    font-size: 28px;
   }
 
   img {

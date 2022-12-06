@@ -3,8 +3,8 @@ const settings = {
   "state": {
     "frontity": {
       "url": "https://test.frontity.org",
-      "title": "Test Frontity Blog",
-      "description": "WordPress installation for Frontity development"
+      "title": "Oniro Studio",
+      "description": "Give your interior another look"
     }
   },
   "packages": [
@@ -18,20 +18,12 @@ const settings = {
               "/"
             ],
             [
-              "Nature",
-              "/category/nature/"
+              "Paintings",
+              "/painting"
             ],
             [
-              "Travel",
-              "/category/travel/"
-            ],
-            [
-              "Japan",
-              "/tag/japan/"
-            ],
-            [
-              "About Us",
-              "/about-us/"
+              "Paintings Categories",
+              "/painting_cat"
             ]
           ],
           "featured": {
@@ -45,12 +37,27 @@ const settings = {
       "name": "@frontity/wp-source",
       "state": {
         "source": {
-          "url": "https://test.frontity.org"
+          "api": "https://admin.onirostudio.com/wp-json",
+          "postTypes": [
+            {
+              "type": "painting",
+              "endpoint": "painting",
+              "archive": "/painting_cat",
+            }
+          ],  
+          "taxonomies": [
+            {
+              "taxonomy": "painting_cat",
+              "endpoint": "painting_cat",
+              "postTypeEndpoint": "painting",
+            },
+          ]
         }
       }
     },
     "@frontity/tiny-router",
-    "@frontity/html2react"
+    "@frontity/html2react",
+    "@aamodtgroup/frontity-contact-form-7",
   ]
 };
 
