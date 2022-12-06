@@ -12,6 +12,7 @@ import { HomePage } from "./HomePage/Homepage";
 import { Footer } from "./footer";
 import MerchantThin from "../assets/Merchant-Thin.woff"
 import BagindaScript from "../assets/BagindaScript.woff"
+import FooterButtons from "./FooterButtons";
 
 /**
  * Theme is the root React component of our theme. The one we will export
@@ -25,11 +26,11 @@ const Theme = ({ state }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
   const paint_cat = state.source.painting_cat
-  console.log({paint_cat});
-  
+  console.log({ paint_cat });
+
   const [subscribed, setSubscribed] = useState(true)
 
-  console.log({"Index":data, state}, subscribed)
+  console.log({ "Index": data, state }, subscribed)
   return (
     <>
       {/* Add some metatags to the <head> of the HTML. */}
@@ -43,29 +44,30 @@ const Theme = ({ state }) => {
       Not classes here because we use CSS-in-JS. Only global HTML tags. */}
       <Global styles={globalStyles} />
       {
-       subscribed ? 
-        <>
-          {/* Add the header of the site. */}
-          <HeadContainer>
-            <Switch>
-              <Header />
-            </Switch>
-          </HeadContainer>
-          {/* Add the main section. It renders a different component depending
+        subscribed ?
+          <>
+            {/* Add the header of the site. */}
+            <HeadContainer>
+              <Switch>
+                <Header />
+              </Switch>
+            </HeadContainer>
+            {/* Add the main section. It renders a different component depending
           on the type of URL we are in. */}
-          <Main>
-            <Switch>
-                <HomePage when={data.isHome}/>
+            <Main>
+              <Switch>
+                <HomePage when={data.isHome} />
                 {/* <PaintingsCategories when={data.isPaintingArchive} /> */}
-                <List when={data.isPaintingCat || data.isPaintingArchive } />
+                <List when={data.isPaintingCat || data.isPaintingArchive} />
                 <Post when={data.isPainting} />
                 <Loading when={data.isFetching} />
                 <PageError when={data.isError} />
-            </Switch>
-          </Main>
-          <Footer/>
-        </>
-        : <Newsletter setSubscribed={setSubscribed}/>
+              </Switch>
+            </Main>
+            <Footer />
+            <FooterButtons />
+          </>
+          : <Newsletter setSubscribed={setSubscribed} />
       }
 
     </>

@@ -70,11 +70,13 @@ const StyledLink = styled(Link)`
      text-decoration: none;
     `
 const Categories = styled.div`
-        display: grid;
-        grid-template-columns: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         gap:10px;
         @media screen and (min-width: 768px) {
            display: flex;
+           flex-direction: row;
            justify-content: space-around;
            flex-wrap: wrap;
            
@@ -91,7 +93,10 @@ const About = styled.div`
     `
 
 const ImageCont = styled.div`
-        width: 30%;
+        min-width: 30%;
+        @media screen and (min-width: 768px) {
+            width: 30%
+        };
     `
 
 const AboutImg = styled.img`

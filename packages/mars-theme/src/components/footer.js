@@ -26,6 +26,8 @@ const FooterContainer = styled.div`
 `
 
 const LogoContainer = styled.div`
+        display: flex;
+        justify-content: center;
     @media (min-width:767px){
         display: flex;
         align-items: center;
