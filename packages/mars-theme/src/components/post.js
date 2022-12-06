@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { connect, styled } from "frontity";
-import Link from "./link";
 import List from "./list";
-import FeaturedMedia from "./featured-media";
-import oniroCircle from "../assets/oniroCircle.svg"
+import React from "react";
 
 /**
  * The Post component that Mars uses to render any kind of "post type", like
@@ -29,7 +27,7 @@ const Post = ({ state, actions, libraries }) => {
   const data = state.source.get(state.router.link);
   // Get the data of the post.
   const post = state.source[data.type][data.id];
-  console.log({"postData": data, post})
+  console.log({ "postData": data, post })
   // Get the data of the author.
   // const author = state.source.author[post.author];
   // Get a human readable date.
@@ -59,7 +57,11 @@ const Post = ({ state, actions, libraries }) => {
       </RightSide>
       <LeftSide>
         <div>
-          <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+          <Title>{post.title.rendered}</Title>
+          <InfoContainer>
+            <SubTitle >{post.acf.dimensions}</SubTitle>
+            <SubTitle >{post.acf.price} Lek</SubTitle>
+          </InfoContainer>
         </div>
 
         {/* Look at the settings to see if we should include the featured image */}
@@ -84,9 +86,10 @@ const Post = ({ state, actions, libraries }) => {
           <ActionButton>Whatsapp</ActionButton>
         </ActionButtonsContainer>
       </LeftSide>
-      <img src={post.acf.secondary_image} />
-      <img src={post.acf.secondary_image} />
-
+      <OtherImagesCont>
+        <Image src={post.acf.secondary_image} />
+        <Image src={post.acf.secondary_image} />
+      </OtherImagesCont>
     </Container>
   ) : null;
 };
@@ -111,6 +114,10 @@ const RightSide = styled.div`
   img{
     width: 100%;
   }
+
+  @media (min-width:767px){
+    width: 80%;
+}
 `
 const LeftSide = styled.div`
   max-width: 400px;
@@ -127,7 +134,7 @@ const ActionButton = styled.button`
   padding: 0.5rem 0;
   cursor: pointer;
   position: relative;
-  transition: all 0.1s ease;
+  transition: all 0.3s ease;
   box-sizing: border-box;
   border: 1px solid transparent;
   :hover{
@@ -138,7 +145,15 @@ const ActionButton = styled.button`
       border:1px solid #FF4D00 ;
   }
  
-` 
+`
+
+const Image = styled.img`
+  width: 100%;
+  @media (min-width:767px){
+    width: 40%;
+}
+`
+
 const ActionButtonsContainer = styled.div`
   margin-top: 5rem;
   display: grid;
@@ -147,14 +162,38 @@ const ActionButtonsContainer = styled.div`
   justify-content: start;
 `
 
-
+const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 
 const Title = styled.h1`
   margin: 0;
   margin-top: 24px;
   margin-bottom: 8px;
   color: #fff;
+  text-align: center;
 `;
+
+const SubTitle = styled.h3`
+  margin: 0;
+  margin-top: 24px;
+  // margin-bottom: 8px;
+  color: #fff;
+`;
+
+const OtherImagesCont = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  @media (min-width:767px){
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+`
 
 /**
  * This component is the parent of the `content.rendered` HTML. We can use nested

@@ -1,7 +1,5 @@
 import { styled } from "frontity"
 import React from "react"
-import oniroCircleWhiteBig from "../assets/oniroCircleWhiteBig.svg"
-import oniroCircleWhiteMedium from "../assets/oniroCircleWhiteMedium.svg"
 import logo from "../assets/logo.svg"
 import instagram from "../assets/instagram.svg"
 import whatsapp from "../assets/whatsapp.svg"
