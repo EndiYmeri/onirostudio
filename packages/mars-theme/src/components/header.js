@@ -49,7 +49,7 @@ const Container = styled.div`
   display: flex;
   align-content: center;
   flex-direction: row;
-  background-color: black;
+  background-color: #050609;
 `;
 
 const StyledLink = styled(Link)`

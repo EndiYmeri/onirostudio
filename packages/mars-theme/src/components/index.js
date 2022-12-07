@@ -120,7 +120,7 @@ const globalStyles = css`
   body {
     margin: 0;
     font-family: "Merchant Thin";
-    background-color: #000000;
+    background-color: #050609;
   }
   a,
   a:visited {

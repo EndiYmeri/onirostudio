@@ -12,6 +12,7 @@ const FooterContainer = styled.div`
     position: relative;
     min-height: 250px;
     overflow: visible;
+    background-color: #050609;
 
     @media (min-width:767px){
         overflow: hidden;
