@@ -296,7 +296,7 @@ const Homepage = ({state, actions}) => {
         <Categories>
             {
                 paintCatArray.map((painting => {
-                    return <ImageCont id={painting.id} ><Item key={painting.id} item={painting} /></ImageCont>
+                    return <ImageCont key={painting.id} ><Item key={painting.id} item={painting} /></ImageCont>
                 }))
             }
         </Categories>
