@@ -57,14 +57,10 @@ const Newsletter = ({state, setSubscribed, actions, libraries})=>{
     const contactForm = state.source.page[data.id]
     const Html2React = libraries.html2react.Component;
 
-
-    useEffect(()=>{
-        if(state.cf7.forms["4"]?.status === "sent"){
-            localStorage.setItem('subscribed', true)
-            setSubscribed(true)
-        }
-    }, [state.cf7?.forms["4"]?.inputVals["your-email"]])
-   
+    if(state.cf7.forms["4"]?.status === "sent"){
+        localStorage.setItem('subscribed', true)
+        setSubscribed(true)
+    }
     return  <Container>
         {
             contactForm? 
