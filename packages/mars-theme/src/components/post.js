@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { connect, styled } from "frontity";
 import List from "./list";
 import React from "react";
-
+import ReactWhatsapp from "react-whatsapp";
 /**
  * The Post component that Mars uses to render any kind of "post type", like
  * posts, pages, attachments, etc.
@@ -27,7 +27,6 @@ const Post = ({ state, actions, libraries }) => {
   const data = state.source.get(state.router.link);
   // Get the data of the post.
   const post = state.source[data.type][data.id];
-  console.log({ "postData": data, post })
   // Get the data of the author.
   // const author = state.source.author[post.author];
   // Get a human readable date.
@@ -35,25 +34,29 @@ const Post = ({ state, actions, libraries }) => {
 
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
-
   /**
    * Once the post has loaded in the DOM, prefetch both the
    * home posts and the list component so if the user visits
    * the home page, everything is ready and it loads instantly.
    */
+  console.log(data)
+   let message = "Hello"
+   if(data.isPostType){
+      message = `Hello, I would like more information about this: https://onirostudio.com${state.router.link}`
+    }
   useEffect(() => {
     actions.source.fetch("/");
     List.preload();
   }, [actions.source]);
-
-
   const media = state.source.attachment[post.featured_media];
+  let same = post.acf.primary_image === media.source_url
   // Load the post, but only if the data is ready.
   return data.isReady ? (
     <Container>
+      <ContainerMain>
       <RightSide>
         {/* <img src={media.source_url} /> */}
-        <img src={post.acf.primary_image} />
+        {same ? <img src={post.acf.primary_image}/>: <img src={media.source_url} /> }
       </RightSide>
       <LeftSide>
         <div>
@@ -83,12 +86,14 @@ const Post = ({ state, actions, libraries }) => {
         )}
         <ActionButtonsContainer>
           <ActionButton>DM</ActionButton>
-          <ActionButton>Whatsapp</ActionButton>
+          <ActionButton><ReactWhatsapp number="+355672418595" message={message} element="span">WHATSAPP</ReactWhatsapp></ActionButton>
         </ActionButtonsContainer>
       </LeftSide>
+      </ContainerMain>
       <OtherImagesCont>
+        { !same? <Image src={post.acf.primary_image} /> : null}
         <Image src={post.acf.secondary_image} />
-        <Image src={post.acf.secondary_image} />
+        {post?.acf?.extra_image ? <Image src={post?.acf?.extra_image} /> : null}
       </OtherImagesCont>
     </Container>
   ) : null;
@@ -98,6 +103,9 @@ export default connect(Post);
 
 const Container = styled.div`
   padding: 1rem 0 10rem ;
+
+`;
+const ContainerMain = styled.div`
   width: 100%;
   margin: 0;
   background-color: #000000;
@@ -108,7 +116,7 @@ const Container = styled.div`
   @media screen and (min-width: 768px) {
     grid-template-columns: 60% 40%;
   };
-`;
+`
 
 const RightSide = styled.div`
   img{
@@ -125,7 +133,7 @@ const LeftSide = styled.div`
 const ActionButton = styled.button`
   background-color: #FF4D00;
   color: #FFFFFF;
-  border-radius: 50px;
+  /* border-radius: 50px; */
   font-size: 18px;
   text-align: center;
   text-transform: uppercase;
@@ -150,7 +158,7 @@ const ActionButton = styled.button`
 const Image = styled.img`
   width: 100%;
   @media (min-width:767px){
-    width: 40%;
+    width: 25%;
 }
 `
 
@@ -185,6 +193,7 @@ const SubTitle = styled.h3`
 `;
 
 const OtherImagesCont = styled.div`
+margin-top:20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -192,7 +201,8 @@ const OtherImagesCont = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
-}
+    justify-content: center;
+  }
 `
 
 /**

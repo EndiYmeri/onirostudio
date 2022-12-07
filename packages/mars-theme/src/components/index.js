@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Global, css, connect, styled, Head } from "frontity";
 import Switch from "@frontity/components/switch";
 import Header from "./header";
@@ -8,11 +8,12 @@ import Loading from "./loading";
 import Title from "./title";
 import PageError from "./page-error";
 import Newsletter from "./newsletter";
-import { HomePage } from "./HomePage/Homepage";
+import HomePage from "./Homepage";
 import { Footer } from "./footer";
 import MerchantThin from "../assets/Merchant-Thin.woff"
 import BagindaScript from "../assets/BagindaScript.woff"
 import FooterButtons from "./FooterButtons";
+import CatList from "./list/cat-list";
 
 /**
  * Theme is the root React component of our theme. The one we will export
@@ -22,15 +23,26 @@ import FooterButtons from "./FooterButtons";
  *
  * @returns The top-level react component representing the theme.
  */
-const Theme = ({ state }) => {
+const Theme = ({ state, actions }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
   const paint_cat = state.source.painting_cat
-  console.log({ paint_cat });
-
   const [subscribed, setSubscribed] = useState(true)
+  // actions.source.fetch("/subscribe");
+  useEffect(() => {
+    localStorage.getItem('subscribed') ? null : setSubscribed(false)
+  }, []);
 
-  console.log({ "Index": data, state }, subscribed)
+  useEffect(()=>{
+    if(subscribed){
+      actions.router.set("/");
+    }else{
+      if(!subscribed){
+        actions.router.set("/subscribe");
+      }
+    }
+  },[subscribed])
+
   return (
     <>
       {/* Add some metatags to the <head> of the HTML. */}
@@ -40,11 +52,12 @@ const Theme = ({ state }) => {
         <html lang="en" />
       </Head>
 
+      
       {/* Add some global styles for the whole site, like body or a's. 
       Not classes here because we use CSS-in-JS. Only global HTML tags. */}
       <Global styles={globalStyles} />
       {
-        subscribed ?
+        // subscribed ?
           <>
             {/* Add the header of the site. */}
             <HeadContainer>
@@ -56,9 +69,11 @@ const Theme = ({ state }) => {
           on the type of URL we are in. */}
             <Main>
               <Switch>
+                <Newsletter  setSubscribed={setSubscribed} when={!subscribed}  />
                 <HomePage when={data.isHome} />
                 {/* <PaintingsCategories when={data.isPaintingArchive} /> */}
-                <List when={data.isPaintingCat || data.isPaintingArchive} />
+                {/* <CatList when={} /> */}
+                <List when={data.isPaintingArchive || data.isPaintingCat} />
                 <Post when={data.isPainting} />
                 <Loading when={data.isFetching} />
                 <PageError when={data.isError} />
@@ -67,7 +82,7 @@ const Theme = ({ state }) => {
             <Footer />
             <FooterButtons />
           </>
-          : <Newsletter setSubscribed={setSubscribed} />
+          // : <Newsletter setSubscribed={setSubscribed} />
       }
 
     </>

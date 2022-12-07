@@ -12,7 +12,6 @@ import Link from "../link";
 const Item = ({ state, item }) => {
 
   const media= state.source.attachment[item.featured_media];
-  console.log(item)
   return (
       <ArticleComp>
         <StyledLink link={item.link} >

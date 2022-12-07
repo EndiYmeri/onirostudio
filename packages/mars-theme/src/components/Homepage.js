@@ -1,13 +1,10 @@
-import { styled } from "frontity"
+import { connect, styled } from "frontity"
 import React, { useState, useEffect } from "react"
-import Link from "../link";
-import logo from "../../assets/logo.svg"
-import heroImg from "../../assets/hero-blackish.jpg"
-import oniroCircle from "../../assets/oniroCircle.svg"
-import ReactWhatsapp from 'react-whatsapp';
-// import {useMediaQuery} from 'react-responsive'
-import Item from "../list/list-item";
-import KristinaPaint from "../../assets/kristina-paint.jpg"
+import Link from "./link";
+import heroImg from "../assets/hero-blackish.jpg"
+import oniroCircle from "../assets/oniroCircle.svg"
+import Item from "./list/list-item";
+import KristinaPaint from "../assets/kristina-paint.jpg"
 const Container = styled.div`
         width: 100%;
         margin: 0;
@@ -27,48 +24,6 @@ const HeroSection = styled.div`
         place-items:center;
         color: white;
     `
-const ActionButton = styled.button`
-        background-color: #121A1C;
-        color: #FFFFFF;
-        border-radius: 50px;
-        font-size: 18px;
-        text-align: center;
-        text-transform: uppercase;
-        width: 135px;
-        border: none;
-        padding: 0.5rem 0;
-        cursor: pointer;
-        position: relative;
-        transition: all 0.1s ease;
-        :hover{
-            color: #121A1C;
-            font-weight: 900;
-            background-color: transparent; 
-        }
-        :hover::before {
-            position: absolute;
-            content: url(${oniroCircle});
-            top: 50%;
-            left: 47%;
-            transform: translate(-50%, -50%);
-        }
-    `
-const NormalText = styled.p`
-        font-size: 28px;
-        line-height: 1.1;
-        font-weight: 100;
-        color: #121A1C;
-        margin-bottom: 25px;
-    `
-const HeadingText = styled.h1`
-        font-family: "BagindaScript";
-        font-size: 48px;
-        font-weight: 200;
-        line-height: 1.2;
-    `
-const StyledLink = styled(Link)`
-     text-decoration: none;
-    `
 const Categories = styled.div`
         display: flex;
         flex-direction: column;
@@ -79,9 +34,8 @@ const Categories = styled.div`
            flex-direction: row;
            justify-content: space-around;
            flex-wrap: wrap;
-           
            img{
-            max-height: 500px;
+            max-height: 400px;
            }
         };
     `
@@ -91,13 +45,12 @@ const About = styled.div`
         gap: 20px;
         padding: 1rem;
     `
-
-const ImageCont = styled.div`
-        min-width: 30%;
-        @media screen and (min-width: 768px) {
-            width: 30%
-        };
-    `
+    const ImageCont = styled.div`
+    min-width: 30%;
+    @media screen and (min-width: 768px) {
+        width: 30%
+    };
+`
 
 const AboutImg = styled.img`
         width: 100%;
@@ -113,14 +66,26 @@ const AboutTextCont = styled.div`
             grid-template-columns: 50% 50%;
         };
     `
-
 const AboutText = styled.div`
     padding: 1rem;
     `
 
-export function HomePage({ state }) {
+const Homepage = ({state, actions}) => {
+    // useEffect(()=>{
+    //     actions.source.fetch("/painting_cat");
+    // },[])
 
-    let paint_cat = [
+    // let paintCat = state.source.get('/painting_cat')
+    // console.log(paintCat)
+    // dataToShow = paintCat.map(item => {
+    //     return state.source.painting[item.id]
+    //   })
+    // let paintCatArray  = []
+    // for(const item in paintCat){
+    //     paintCatArray.push(paintCat[item])
+    //   }
+
+    let paintCatArray = [
         {
             "id": 3,
             "link": "/painting_cat/3d-texture-art/",
@@ -323,7 +288,6 @@ export function HomePage({ state }) {
             }
         },
     ]
-    // console.log(props)
     return <Container>
         <HeroSection>
             <h1>
@@ -332,8 +296,8 @@ export function HomePage({ state }) {
         </HeroSection>
         <Categories>
             {
-                paint_cat.map((painting => {
-                    return <ImageCont><Item key={painting.id} item={painting} /></ImageCont>
+                paintCatArray.map((painting => {
+                    return <ImageCont id={painting.id} ><Item key={painting.id} item={painting} /></ImageCont>
                 }))
             }
         </Categories>
@@ -362,3 +326,4 @@ export function HomePage({ state }) {
         </About>
     </Container>
 }
+export default connect(Homepage)

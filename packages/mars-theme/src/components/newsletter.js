@@ -1,4 +1,5 @@
 import { connect, styled } from "frontity";
+import { useEffect } from "react"
 import heroBlackish from "../assets/hero-blackish.jpg"
 
 const Newsletter = ({state, setSubscribed, actions, libraries})=>{
@@ -12,7 +13,7 @@ const Newsletter = ({state, setSubscribed, actions, libraries})=>{
 
     const Container = styled.div`
         width: 100%;
-        height: 100vh;
+        height: calc(100vh - 10rem);
         display: grid;
         place-items: center;
         color: white;
@@ -35,10 +36,14 @@ const Newsletter = ({state, setSubscribed, actions, libraries})=>{
             padding: 10px;
             background-color: black;
             color: white;
+            font-size: 18px;
         }
     .wpcf7-form .wpcf7-submit{
         background-color: #FF4D00 ;
         color: white;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 1;
         padding: 10px 20px;
         cursor: pointer;
         transition: all 0.3s ease-in-out;
@@ -48,13 +53,25 @@ const Newsletter = ({state, setSubscribed, actions, libraries})=>{
         }
     }    
     `
-
-    const data = state.source.get('/subscribe');
+    const data = state.source.get('/subscribe/');
     const contactForm = state.source.page[data.id]
     const Html2React = libraries.html2react.Component;
+
+
+    useEffect(()=>{
+        if(state.cf7.forms["4"]?.inputVals["your-email"]?.length > 1){
+            localStorage.setItem('subscribed', true)
+            setSubscribed(true)
+        }
+    }, [state?.cf7?.forms["4"]])
+   
     console.log("Newsletter:", state, data)
     return  <Container>
-        <Html2React html={contactForm.content.rendered} />
+        {
+            contactForm? 
+                <Html2React html={contactForm.content.rendered} />
+                :null
+            }
     </Container>
 }
 
