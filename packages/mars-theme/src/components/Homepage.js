@@ -76,7 +76,6 @@ const Homepage = ({state, actions}) => {
     // },[])
 
     // let paintCat = state.source.get('/painting_cat')
-    // console.log(paintCat)
     // dataToShow = paintCat.map(item => {
     //     return state.source.painting[item.id]
     //   })

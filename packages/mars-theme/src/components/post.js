@@ -39,7 +39,6 @@ const Post = ({ state, actions, libraries }) => {
    * home posts and the list component so if the user visits
    * the home page, everything is ready and it loads instantly.
    */
-  console.log(data)
    let message = "Hello"
    if(data.isPostType){
       message = `Hello, I would like more information about this: https://onirostudio.com${state.router.link}`

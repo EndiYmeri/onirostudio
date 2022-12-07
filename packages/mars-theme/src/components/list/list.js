@@ -28,7 +28,6 @@ const Header = styled.h3`
 const List = ({ state }) => {
   // Get the data of the current list.
   const data = state.source.get(state.router.link);
-    console.log({data,state})
     let dataToShow
     let dataToShowArray = []
     let dataReceived = {}
@@ -41,7 +40,6 @@ const List = ({ state }) => {
       for(const item in dataToShow){
         dataToShowArray.push(dataToShow[item])
       }
-      console.log(dataToShowArray)
     }else if(data.isPaintingArchive){
       // dataReceived = data.items
       // dataToShow = dataReceived.map(item => {
@@ -50,7 +48,6 @@ const List = ({ state }) => {
       // for(const item in dataToShow){
       //   dataToShowArray.push(dataToShow[item])
       // }
-      // console.log(dataToShowArray)
     }
  // let categories = Object.values(categoriesObject)
  // categories.sort(name => categories.name)

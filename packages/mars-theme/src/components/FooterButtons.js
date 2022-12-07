@@ -2,7 +2,6 @@ import { connect, styled } from "frontity";
 import ReactWhatsapp from "react-whatsapp";
 
 const FooterButtons = ({ state }) => {
-  console.log(state)
   const data = state.source.get(state.router.link)
   let message = "Hello"
   if(data.isPostType){

@@ -37,7 +37,7 @@ const settings = {
       "name": "@frontity/wp-source",
       "state": {
         "source": {
-          "api": "https://admin.onirostudio.com/wp-json",
+          "api": "https://admin.onirostudio.com/wp-json/",
           "postTypes": [
             {
               "type": "painting",

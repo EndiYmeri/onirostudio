@@ -59,13 +59,12 @@ const Newsletter = ({state, setSubscribed, actions, libraries})=>{
 
 
     useEffect(()=>{
-        if(state.cf7.forms["4"]?.inputVals["your-email"]?.length > 1){
+        if(state.cf7.forms["4"]?.status === "sent"){
             localStorage.setItem('subscribed', true)
             setSubscribed(true)
         }
-    }, [state?.cf7?.forms["4"]])
+    }, [state.cf7?.forms["4"]?.inputVals["your-email"]])
    
-    console.log("Newsletter:", state, data)
     return  <Container>
         {
             contactForm? 

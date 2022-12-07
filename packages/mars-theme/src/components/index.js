@@ -14,7 +14,10 @@ import MerchantThin from "../assets/Merchant-Thin.woff"
 import BagindaScript from "../assets/BagindaScript.woff"
 import FooterButtons from "./FooterButtons";
 import CatList from "./list/cat-list";
-
+import appleTouchIcon from "../assets/favicon/apple-touch-icon.png"
+import favicon32 from "../assets/favicon/favicon-32x32.png"
+import favicon16 from "../assets/favicon/favicon-16x16.png"
+// import manifest from "../assets/favicon/site.webmanifest"
 /**
  * Theme is the root React component of our theme. The one we will export
  * in roots.
@@ -50,6 +53,10 @@ const Theme = ({ state, actions }) => {
       <Head>
         <meta name="description" content={state.frontity.description} />
         <html lang="en" />
+        <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon}/>
+        <link rel="icon" type="image/png" sizes="32x32" href={favicon32}/>
+        <link rel="icon" type="image/png" sizes="16x16" href={favicon16}/>
+        {/* <link rel="manifest" href={manifest} /> */}
       </Head>
 
       

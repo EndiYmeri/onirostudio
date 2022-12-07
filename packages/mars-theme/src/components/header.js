@@ -7,7 +7,6 @@ import logo from "../assets/logo.svg"
 const Header = ({ state }) => {
 
   const data = state.source.get(state.router.link);
-  console.log({state})
   let title = ""
   // Set the default title.
   if (data.isTaxonomy) {
