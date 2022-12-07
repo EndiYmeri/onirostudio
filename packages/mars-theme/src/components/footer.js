@@ -64,7 +64,9 @@ export function Footer(props) {
     return (
         <FooterContainer>
             <LogoContainer>
-                <Logo src={logo} alt="Logo White" />
+                <a href="/">
+                    <Logo src={logo} alt="Logo White" />
+                </a>
             </LogoContainer>
             <FooterLinksContainer>
                 <FooterLink href="https://www.instagram.com/oniro.studio" target={"_blank"}>
