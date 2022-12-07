@@ -8,11 +8,12 @@ import Loading from "./loading";
 import Title from "./title";
 import PageError from "./page-error";
 import Newsletter from "./newsletter";
-import { HomePage } from "./HomePage/Homepage";
+import HomePage from "./Homepage";
 import { Footer } from "./footer";
 import MerchantThin from "../assets/Merchant-Thin.woff"
 import BagindaScript from "../assets/BagindaScript.woff"
 import FooterButtons from "./FooterButtons";
+import CatList from "./list/cat-list";
 
 /**
  * Theme is the root React component of our theme. The one we will export
@@ -26,11 +27,7 @@ const Theme = ({ state }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
   const paint_cat = state.source.painting_cat
-  console.log({ paint_cat });
-
-  const [subscribed, setSubscribed] = useState(true)
-
-  console.log({ "Index": data, state }, subscribed)
+  const [subscribed, setSubscribed] = useState(false)
   return (
     <>
       {/* Add some metatags to the <head> of the HTML. */}
@@ -58,7 +55,8 @@ const Theme = ({ state }) => {
               <Switch>
                 <HomePage when={data.isHome} />
                 {/* <PaintingsCategories when={data.isPaintingArchive} /> */}
-                <List when={data.isPaintingCat || data.isPaintingArchive} />
+                {/* <CatList when={} /> */}
+                <List when={data.isPaintingArchive || data.isPaintingCat} />
                 <Post when={data.isPainting} />
                 <Loading when={data.isFetching} />
                 <PageError when={data.isError} />

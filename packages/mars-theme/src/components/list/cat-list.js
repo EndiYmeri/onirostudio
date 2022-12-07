@@ -3,8 +3,6 @@ import {useState, useEffect} from "react"
 import Item from "./list-item";
 import Pagination from "./pagination";
 
-
-
 const Container = styled.section`
   margin: 0;
   list-style: none;
@@ -25,29 +23,16 @@ const Header = styled.h3`
   color: #fff;
 `;
 
-const List = ({ state }) => {
-  // Get the data of the current list.
-  const data = state.source.get(state.router.link);
-    console.log({data,state})
-    let dataToShow
+const CatList = ({ state }) => {
+    // Get the data of the current list.
+    const data = state.source.get(state.router.link);
     let dataToShowArray = []
     let dataReceived = {}
-
-   if(data.isPaintingCat){
-      dataReceived = data.items
-      dataToShow = dataReceived.map(item => {
-        return state.source.painting[item.id]
-      })
-      for(const item in dataToShow){
-        dataToShowArray.push(dataToShow[item])
-      }
-      console.log(dataToShowArray)
-    }else if(data.isPaintingArchive){
-      dataReceived = {}
-      dataToShowArray = []
-      for(const item in dataReceived){
-        dataToShowArray.push(dataReceived[item])
-      }
+    dataToShowArray = []
+    dataReceived = {}
+    dataReceived = state.source.painting
+    for(const item in dataReceived){
+    dataToShowArray.push(dataReceived[item])
     }
  // let categories = Object.values(categoriesObject)
  // categories.sort(name => categories.name)
@@ -67,7 +52,7 @@ const List = ({ state }) => {
      
       {/* Iterate over the items of the list. */}
       { 
-        dataToShowArray.map((painting => {
+       dataToShowArray?.map((painting => {
             return <Item key={painting.id} item={painting}/>
         }))
       }
@@ -76,6 +61,9 @@ const List = ({ state }) => {
   )
 };
 
-export default connect(List);
+
+
+
+export default connect(CatList);
 
 

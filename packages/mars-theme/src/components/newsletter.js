@@ -52,6 +52,12 @@ const Newsletter = ({state, setSubscribed, actions, libraries})=>{
     const data = state.source.get('/subscribe');
     const contactForm = state.source.page[data.id]
     const Html2React = libraries.html2react.Component;
+
+
+    // const button = document.querySelector('.wpcf7-submit')
+    // button.addEventListener('click', ()=>{
+    //     setSubscribed(true)
+    // }) 
     console.log("Newsletter:", state, data)
     return  <Container>
         <Html2React html={contactForm.content.rendered} />

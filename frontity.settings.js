@@ -2,7 +2,7 @@ const settings = {
   "name": "onirostudio",
   "state": {
     "frontity": {
-      "url": "https://test.frontity.org",
+      "url": "https://admin.onirostudio.com",
       "title": "Oniro Studio",
       "description": "Give your interior another look"
     }

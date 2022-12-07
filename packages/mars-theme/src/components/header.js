@@ -1,15 +1,27 @@
-import { connect, styled } from "frontity";
+import { connect, styled, decode } from "frontity";
+import {useEffect, useState} from "react"
 import Link from "./link";
 import MobileMenu from "./menu";
 import logo from "../assets/logo.svg"
 
 const Header = ({ state }) => {
-  console.log("Header state:", state.source)
-  let pageTitle 
 
-  if(state.source.painting_cat){
-    // pageTitle = state.source.painting_cat["3"].name
+  const data = state.source.get(state.router.link);
+  console.log({state})
+  let title = ""
+  // Set the default title.
+  if (data.isTaxonomy) {
+    // Add titles to taxonomies, like "Category: Nature - Blog Name" or "Tag: Japan - Blog Name".
+    // 1. Get the taxonomy entity from the state to get its taxonomy term and name.
+    const { taxonomy, name } = state.source[data.taxonomy][data.id];
+    // 3. Render the proper title.
+    title = `${decode(name)}`;
   }
+  else if(data.isPostType){
+    const post = state.source[data.type][data.id]
+    title = post.title.rendered
+  }
+
   return (
     <>
       <Container>
@@ -17,7 +29,7 @@ const Header = ({ state }) => {
           <Logo src={logo} />
         </StyledLink>
         <TitleCont>
-          <Title>{pageTitle}</Title>
+          <Title>{title}</Title>
           </TitleCont>
         {/* <MobileMenu /> */}
         <HeaderDesc></HeaderDesc>
@@ -43,15 +55,15 @@ const Container = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  width: 45%;
+  /* width: 45%; */
   padding: 2rem;
 `
 
 const Logo = styled.img`
   height: 40px;
   @media screen and (min-width: 768px) {
-            height: 60px;
-        };
+    height: 60px;
+  };
 `
 const HeaderDesc = styled.p`
   font-size: 24px;
@@ -59,13 +71,20 @@ const HeaderDesc = styled.p`
 `
 
 const TitleCont = styled.div`
-  width: 55%;
+  /* width: 55%; */
   display: flex;
-  justify-content: start;
+  /* justify-content: start; */
   align-items: center;
+  margin-left: auto;
+  padding-right: 2rem;
+  
 `
 
 const Title = styled.h1`
-font-size: 24px;
-  color: #FF4D00;
+  font-size: 16px;
+  /* color: #FF4D00; */
+  color: white;
+  @media screen and (min-width: 768px) {
+    font-size: 24px;
+  };
 `
