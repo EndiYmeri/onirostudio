@@ -68,7 +68,8 @@ const AboutTextCont = styled.div`
     `
 const AboutText = styled.div`
     padding: 1rem;
-    `
+    line-height: 1.4;
+`
 
 const Homepage = ({state, actions}) => {
     // useEffect(()=>{
