@@ -9,12 +9,13 @@ import Link from "./link";
  */
 const MenuModal = ({ ...props }) => {
   const { state } = useConnect();
-  const { menu } = state.theme;
+  const { menu, isMobileMenuOpen } = state.theme;
   const isThereLinks = menu?.length > 0;
-
+  let translateAmount = "300px"
+  if(isMobileMenuOpen) translateAmount = "0px"
   return (
     <div {...props}>
-      {state.frontity.mode !== "amp" && <MenuOverlay />}
+      {state.frontity.mode !== "amp" && <MenuOverlay translateX={translateAmount}/>}
       <MenuContent as="nav">
         {isThereLinks &&
           menu.map(([name, link]) => (
@@ -32,36 +33,42 @@ const MenuModal = ({ ...props }) => {
 };
 
 const MenuOverlay = styled.div`
-  background-color: #1f38c5;
-  width: 100vw;
+  background-color: #FF4D00;
+  width: 300px;
+  /* transform: ${props => `translateX(${props.translateX})`}; */
   height: 100vh;
   overflow: hidden auto;
   position: fixed;
   z-index: 2;
   top: 0;
-  left: 0;
+  right: 0;
+  transition: all 1s ease-in 1s;
 `;
 
 const MenuContent = styled.div`
   z-index: 3;
-  position: relative;
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 
 const MenuLink = styled(Link)`
-  width: 100%;
-  display: inline-block;
+  width: 300px;
+  /* transform: translateX(300px); */
+  display: block;
   outline: 0;
   font-size: 20px;
   text-align: center;
   padding: 1.2rem 0;
-
+  color:white !important;
   &:hover,
   &:focus {
     background-color: rgba(0, 0, 0, 0.05);
   }
   /* styles for active link */
   &[aria-current="page"] {
-    color: yellow;
+    color: black;
     font-weight: bold;
   }
 `;

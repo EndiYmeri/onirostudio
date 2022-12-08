@@ -2,7 +2,7 @@ const settings = {
   "name": "onirostudio",
   "state": {
     "frontity": {
-      "url": "https://admin.onirostudio.com",
+      "url": "https://www.onirostudio.com/",
       "title": "Oniro Studio",
       "description": "Give your interior another look"
     }
@@ -18,12 +18,12 @@ const settings = {
               "/"
             ],
             [
-              "Paintings",
-              "/painting"
+              "View all",
+              "/all-paintings"
             ],
             [
-              "Paintings Categories",
-              "/painting_cat"
+              "About",
+              "/#aboutSection"
             ]
           ],
           "featured": {
@@ -42,7 +42,7 @@ const settings = {
             {
               "type": "painting",
               "endpoint": "painting",
-              "archive": "/painting_cat",
+              "archive": "/all-paintings",
             }
           ],  
           "taxonomies": [

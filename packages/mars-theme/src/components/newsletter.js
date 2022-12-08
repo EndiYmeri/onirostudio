@@ -56,10 +56,11 @@ const Newsletter = ({state, setSubscribed, actions, libraries})=>{
     const data = state.source.get('/subscribe/');
     const contactForm = state.source.page[data.id]
     const Html2React = libraries.html2react.Component;
-
+    console.log(data)
     if(state.cf7.forms["4"]?.status === "sent"){
         localStorage.setItem('subscribed', true)
         setSubscribed(true)
+        actions.router.set("/");
     }
     return  <Container>
         {

@@ -41,13 +41,13 @@ const List = ({ state }) => {
         dataToShowArray.push(dataToShow[item])
       }
     }else if(data.isPaintingArchive){
-      // dataReceived = data.items
-      // dataToShow = dataReceived.map(item => {
-      //   return state.source.painting[item.id]
-      // })
-      // for(const item in dataToShow){
-      //   dataToShowArray.push(dataToShow[item])
-      // }
+      dataReceived = data.items
+      dataToShow = dataReceived.map(item => {
+        return state.source.painting[item.id]
+      })
+      for(const item in dataToShow){
+        dataToShowArray.push(dataToShow[item])
+      }
     }
  // let categories = Object.values(categoriesObject)
  // categories.sort(name => categories.name)

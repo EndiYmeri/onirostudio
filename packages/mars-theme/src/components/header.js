@@ -30,12 +30,10 @@ const Header = ({ state }) => {
         <TitleCont>
           <Title>{title}</Title>
           </TitleCont>
-        {/* <MobileMenu /> */}
+        <MobileMenu />
         <HeaderDesc></HeaderDesc>
       </Container>
       {/* <Nav /> */}
-
-
     </>
   );
 };
@@ -50,18 +48,20 @@ const Container = styled.div`
   align-content: center;
   flex-direction: row;
   background-color: #050609;
+  padding:1rem;
+  @media screen and (min-width: 768px) {
+    padding: 1rem 2rem;
+  };
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  /* width: 45%; */
-  padding: 2rem;
 `
 
 const Logo = styled.img`
-  height: 40px;
+  height: 50px;
   @media screen and (min-width: 768px) {
-    height: 60px;
+    height: 70px;
   };
 `
 const HeaderDesc = styled.p`
@@ -81,8 +81,7 @@ const TitleCont = styled.div`
 
 const Title = styled.h1`
   font-size: 16px;
-  /* color: #FF4D00; */
-  color: white;
+  color: #FF4D00;
   @media screen and (min-width: 768px) {
     font-size: 24px;
   };

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { connect, styled } from "frontity";
 import List from "./list";
 import React from "react";
-import ReactWhatsapp from "react-whatsapp";
+import Link from "./link";
 /**
  * The Post component that Mars uses to render any kind of "post type", like
  * posts, pages, attachments, etc.
@@ -27,6 +27,7 @@ const Post = ({ state, actions, libraries }) => {
   const data = state.source.get(state.router.link);
   // Get the data of the post.
   const post = state.source[data.type][data.id];
+  const paintCat = state.source["painting_cat"][post.painting_cat[0]]
   // Get the data of the author.
   // const author = state.source.author[post.author];
   // Get a human readable date.
@@ -43,6 +44,7 @@ const Post = ({ state, actions, libraries }) => {
    if(data.isPostType){
       message = `Hello, I would like more information about this: https://onirostudio.com${state.router.link}`
     }
+    console.log(post, paintCat)
   useEffect(() => {
     actions.source.fetch("/");
     List.preload();
@@ -59,6 +61,11 @@ const Post = ({ state, actions, libraries }) => {
       </RightSide>
       <LeftSide>
         <div>
+          <SubTitle color="#FF4D00">
+            <StyledLink link={paintCat.link}>
+             {paintCat.name}
+            </StyledLink>
+          </SubTitle>
           <Title>{post.title.rendered}</Title>
           <InfoContainer>
             <SubTitle >{post.acf.dimensions}</SubTitle>
@@ -83,10 +90,10 @@ const Post = ({ state, actions, libraries }) => {
             {/* <Html2React html={post.content.rendered} /> */}
           </Content>
         )}
-        <ActionButtonsContainer>
+        {/* <ActionButtonsContainer>
           <ActionButton>DM</ActionButton>
           <ActionButton><ReactWhatsapp number="+355672418595" message={message} element="span">WHATSAPP</ReactWhatsapp></ActionButton>
-        </ActionButtonsContainer>
+        </ActionButtonsContainer> */}
       </LeftSide>
       </ContainerMain>
       <OtherImagesCont>
@@ -100,20 +107,29 @@ const Post = ({ state, actions, libraries }) => {
 
 export default connect(Post);
 
+const StyledLink = styled(Link)`
+  /* width: 45%; */
+`
+
 const Container = styled.div`
-  padding: 1rem 0 10rem ;
+  padding: 1rem;
+  @media screen and (min-width: 768px) {
+    padding: 1rem 2rem;
+  };
 
 `;
 const ContainerMain = styled.div`
   width: 100%;
   margin: 0;
-  background-color: #000000;
+  background-color: #050609;
   display: grid;
   grid-template-columns: auto;
   gap: 20px;
-  place-items: center;
+  place-content: center;
   @media screen and (min-width: 768px) {
     grid-template-columns: 60% 40%;
+    align-items: center;
+    justify-content: left;
   };
 `
 
@@ -172,23 +188,22 @@ const ActionButtonsContainer = styled.div`
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `
 
 const Title = styled.h1`
   margin: 0;
-  margin-top: 24px;
-  margin-bottom: 8px;
+  margin-top: 15px;
+  margin-bottom: 3px;
   color: #fff;
-  text-align: center;
+  text-align: left;
 `;
 
 const SubTitle = styled.h3`
   margin: 0;
-  margin-top: 24px;
+  margin-top: 10px;
   // margin-bottom: 8px;
-  color: #fff;
+  color: ${props => props.color || "white" };
+  font-size: 15px;
 `;
 
 const OtherImagesCont = styled.div`

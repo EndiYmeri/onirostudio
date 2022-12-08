@@ -28,23 +28,27 @@ import favicon16 from "../assets/favicon/favicon-16x16.png"
  */
 const Theme = ({ state, actions }) => {
   // Get information about the current URL.
-  const data = state.source.get(state.router.link);
+  let data = state.source.get(state.router.link);
+  console.log("Index Data:", data)
   const paint_cat = state.source.painting_cat
-  const [subscribed, setSubscribed] = useState(true)
+  const [subscribed, setSubscribed] = useState(false)
   // actions.source.fetch("/subscribe");
   useEffect(() => {
-    localStorage.getItem('subscribed') ? null : setSubscribed(false)
+    localStorage.getItem('subscribed') ? setSubscribed(true) : null 
   }, []);
 
-  useEffect(()=>{
-    if(subscribed){
+  if(subscribed){
+    if(state.router.link === "/subscribe/"){
       actions.router.set("/");
-    }else{
-      if(!subscribed){
-        actions.router.set("/subscribe");
-      }
+      state.source.get(state.router.link);
     }
-  },[subscribed])
+  }else{
+    if(!subscribed){
+      actions.router.set("/subscribe/");
+      state.source.get('/subscribe/');
+
+    }
+  }
 
   return (
     <>
@@ -144,7 +148,10 @@ const HeadContainer = styled.div`
 `;
 
 const Main = styled.div`
-  padding-top:120px;
+  padding-top:86px;
+  @media (min-width:767px){
+    padding-top: 100px;
+  }
   /* background-image: linear-gradient(
     180deg,
     rgba(66, 174, 228, 0.1),

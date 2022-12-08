@@ -25,8 +25,8 @@ export default connect(FooterButtons);
 
 const Container = styled.div`
   position: fixed;
-  bottom: 10px;
-  right: 10px;
+  bottom: 1rem;
+  right: 1rem;
   box-sizing: border-box;
   display: flex;
   align-content: center;
@@ -34,7 +34,7 @@ const Container = styled.div`
   gap: .5rem;
   @media screen and (min-width: 768px) {
     left: 2rem;
-    bottom: 20px;
+    bottom: 2rem;
     right: unset;
 };
 `;
@@ -54,7 +54,7 @@ const Button = styled.button`
   text-transform: uppercase;
   padding: 0.5rem 0;
   cursor: pointer;
-  /* border-radius: 50px; */
+  border-radius: 50px;
   font-weight: bold;
   margin-left: auto;
 `

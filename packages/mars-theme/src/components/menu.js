@@ -26,7 +26,7 @@ function MobileMenu({ state, actions }) {
 
       <MenuToggle>
         <HamburgerIcon
-          color="white"
+          color="#FF4D00"
           size="24px"
           role="button"
           tabindex="0"
@@ -66,18 +66,20 @@ function MobileMenu({ state, actions }) {
 }
 
 const MenuToggle = styled.button`
-  position: absolute;
-  right: 24px;
-  top: 24px;
+  /* position: absolute; */
+  /* right: 24px; */
+  /* top: 24px; */
+  padding: 0;
   background: transparent;
   border: 0;
-  color: white;
-  z-index: 5;
-  height: 40px;
-  width: 40px;
+  color: #FF4D00;
+  z-index: 10;
+  cursor: pointer;
   display: none;
-
-  @media (max-width: 560px) {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  @media (max-width: 767px) {
     display: flex;
     align-items: center;
     justify-content: center;

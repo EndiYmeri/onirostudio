@@ -15,7 +15,7 @@ const Item = ({ state, item }) => {
   return (
       <ArticleComp>
         <StyledLink link={item.link} >
-            <h1>{item.name || item.title.rendered}</h1>
+            <h1>{item.name || item.title.rendered} <span> Learn more</span> </h1>
             <ImgComp src={item.acf.category_image || media?.source_url} />
         </StyledLink>
       </ArticleComp>
@@ -38,6 +38,19 @@ export default connect(Item);
   `
   const StyledLink = styled(Link)`
     cursor: pointer;
+    &:hover{
+        color: #FF4D00 !important;
+    }
+
+    h1{
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      span{
+        font-size: 14px;
+        color: #FF4D00;
+      }
+    }
   `;
 
   const ImgComp = styled.img`
