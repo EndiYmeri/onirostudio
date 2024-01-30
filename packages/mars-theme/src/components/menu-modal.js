@@ -1,5 +1,6 @@
 import { styled, connect, useConnect } from "frontity";
 import Link from "./link";
+import ReactWhatsapp from "react-whatsapp";
 
 /**
  * The modal containing the mobile menu items.
@@ -27,13 +28,15 @@ const MenuModal = ({ ...props }) => {
               {name}
             </MenuLink>
           ))}
+        {/* <a href="http://localhost:3000/#aboutSection">About Us</a> */}
+        <ReactWhatsapp number="+355697329797" message={"Hello, I would like to talk about a personalized painting"} element="whts-button">Personalized Painting</ReactWhatsapp>
       </MenuContent>
     </div>
   );
 };
 
 const MenuOverlay = styled.div`
-  background-color: #FF4D00;
+  background-color: #fc4523;
   width: 300px;
   /* transform: ${props => `translateX(${props.translateX})`}; */
   height: 100vh;
@@ -51,6 +54,14 @@ const MenuContent = styled.div`
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+  whts-button{
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    padding: 1.2rem 0;
+    color:white;
+    cursor: pointer;
+  }
 `;
 
 const MenuLink = styled(Link)`

@@ -81,7 +81,7 @@ const TitleCont = styled.div`
 
 const Title = styled.h1`
   font-size: 16px;
-  color: #FF4D00;
+  color: #fc4523;
   @media screen and (min-width: 768px) {
     font-size: 24px;
   };

@@ -9,7 +9,7 @@ import Title from "./title";
 import PageError from "./page-error";
 import Newsletter from "./newsletter";
 import HomePage from "./Homepage";
-import { Footer } from "./footer";
+import Footer from "./footer";
 import MerchantThin from "../assets/Merchant-Thin.woff"
 import BagindaScript from "../assets/BagindaScript.woff"
 import FooterButtons from "./FooterButtons";
@@ -29,26 +29,46 @@ import favicon16 from "../assets/favicon/favicon-16x16.png"
 const Theme = ({ state, actions }) => {
   // Get information about the current URL.
   let data = state.source.get(state.router.link);
-  console.log("Index Data:", data)
   const paint_cat = state.source.painting_cat
   const [subscribed, setSubscribed] = useState(false)
+  const [showPopUpModal, setShowPopUpModal] = useState(false)
   // actions.source.fetch("/subscribe");
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setShowPopUpModal(true)
+    }, 1000)
+  },[])
   useEffect(() => {
-    localStorage.getItem('subscribed') ? setSubscribed(true) : null 
-  }, []);
-
-  if(subscribed){
-    if(state.router.link === "/subscribe/"){
-      actions.router.set("/");
-      state.source.get(state.router.link);
-    }
-  }else{
-    if(!subscribed){
-      actions.router.set("/subscribe/");
-      state.source.get('/subscribe/');
-
+  if (typeof window !== 'undefined') {
+    if(window.localStorage.getItem('subscribed')){
+      setSubscribed(true)
+      setShowPopUpModal(false)
+    } else{
+      setSubscribed(false)
+      setShowPopUpModal(showPopUpModal? true : false)
     }
   }
+}, [subscribed, showPopUpModal]);
+
+  const closePopUpModal = () =>{
+    console.log(showPopUpModal, subscribed)
+    setShowPopUpModal(false)
+    
+  }
+
+  // if(subscribed){
+  //   if(state.router.link === "/subscribe/"){
+  //     actions.router.set("/");
+  //     state.source.get(state.router.link);
+  //   }
+  // }else{
+  //   if(!subscribed){
+  //     actions.router.set("/subscribe/");
+  //     state.source.get('/subscribe/');
+
+  //   }
+  // }
 
   return (
     <>
@@ -60,9 +80,18 @@ const Theme = ({ state, actions }) => {
         <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon}/>
         <link rel="icon" type="image/png" sizes="32x32" href={favicon32}/>
         <link rel="icon" type="image/png" sizes="16x16" href={favicon16}/>
+      
         {/* <link rel="manifest" href={manifest} /> */}
       </Head>
+     {/* Google tag (gtag.js) */}
+      {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-8N5MKQWVRZ"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments)}
+        gtag('js', new Date());
 
+        gtag('config', 'G-8N5MKQWVRZ');
+      </script> */}
       
       {/* Add some global styles for the whole site, like body or a's. 
       Not classes here because we use CSS-in-JS. Only global HTML tags. */}
@@ -79,8 +108,14 @@ const Theme = ({ state, actions }) => {
             {/* Add the main section. It renders a different component depending
           on the type of URL we are in. */}
             <Main>
+              {
+              showPopUpModal && <PopUpContainer>
+                <Newsletter closeModal={closePopUpModal} />
+              </PopUpContainer>
+
+              }
               <Switch>
-                <Newsletter  setSubscribed={setSubscribed} when={!subscribed}  />
+                {/* <Newsletter  setSubscribed={setSubscribed} when={!subscribed}  /> */}
                 <HomePage when={data.isHome} />
                 {/* <PaintingsCategories when={data.isPaintingArchive} /> */}
                 {/* <CatList when={} /> */}
@@ -89,6 +124,7 @@ const Theme = ({ state, actions }) => {
                 <Loading when={data.isFetching} />
                 <PageError when={data.isError} />
               </Switch>
+             
             </Main>
             <Footer />
             <FooterButtons />
@@ -145,7 +181,19 @@ const HeadContainer = styled.div`
   background-color: transparent;
   position: fixed;
   width: 100%;
+  z-index: 10;
 `;
+
+const PopUpContainer = styled.div`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  place-content: center;
+  z-index: 200;
+  background-color: transparent;
+`
 
 const Main = styled.div`
   padding-top:86px;

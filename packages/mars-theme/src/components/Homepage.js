@@ -2,6 +2,7 @@ import { connect, css, styled } from "frontity"
 import React, { useState, useEffect } from "react"
 import Link from "./link";
 import heroImg from "../assets/hero-blackish.jpg"
+import heroMobileDark from "../assets/cel-dark.jpg"
 import oniroCircle from "../assets/oniroCircle.svg"
 import Item from "./list/list-item";
 import CatItem from "./list/list-cat-item";
@@ -16,16 +17,20 @@ const Container = styled.div`
     `
 const ContainerMain = styled.div`
     padding: 1rem;
+    margin-top: 60px;
     h3{
         color: white;
         margin-bottom: 5px;
     }
     @media screen and (min-width: 768px) {
         padding: 2rem;
+        /* margin-top: 0;    */
+
     };
 `
 const HeroSection = styled.div`
-        background-image: url(${heroImg});
+        position: relative;
+        background-image: url(${heroMobileDark});
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
@@ -33,33 +38,41 @@ const HeroSection = styled.div`
         display: grid;
         min-height: 800px;
         width: 100%;
-        place-items:center;
+        place-content:center;
         color: white;
         h1{
             font-size: 31px;
             font-weight: 200;
         }
+        @media screen and (min-width: 768px) {
+        background-image: url(${heroImg});
+    };
     `
 
 
 const Categories = styled.div`
     display: grid;
     gap: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 80px;
         @media screen and (min-width: 768px) {
             grid-template-columns: 1fr 1fr 1fr;
+            /* margin-bottom: 30px; */
         };
     `
 const About = styled.div`
         color: white;
         display: grid;
+        @media screen and (min-width: 768px) {
+            grid-template-columns: auto 1fr;
+            gap: 50px;
+            align-items: center;
+        };
         h3{
-            text-align: center;
             margin-bottom: 5px;
             text-align: left;
         }
     `
-    const ImageCont = styled.div`
+const ImageCont = styled.div`
     min-width: 30%;
     @media screen and (min-width: 768px) {
         width: 30%
@@ -75,10 +88,7 @@ const AboutTextCont = styled.div`
         width: 100%;
         grid-template-columns: auto;
         text-align: justify;
-        @media screen and (min-width: 768px) {
-            grid-template-columns: 50% 50%;
-            gap: 10px;
-        };
+      
     `
 const AboutText = styled.div`
     /* padding: 1rem; */
@@ -87,6 +97,32 @@ const AboutText = styled.div`
         margin-top: 10px;
         margin-bottom: 0;
     }
+`
+
+const HeroButton = styled.button`
+    background-color:#fc4523;
+    border-radius: 50px;
+    width: fit-content;
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 10px 30px;
+    margin: auto;
+    cursor: pointer;
+`
+const HeroOffer = styled.div`
+    position:absolute;
+    top: 10px;
+    right: 1rem;
+    background-color:#fc4523;
+    color: white;
+    font-size: 20px;
+    padding: 0.7rem 1.4rem;
+    border-radius: 16px;
+    font-weight: bold;
+    @media screen and (min-width: 768px) {
+        right: 2rem;
+    };
 `
 
 const Homepage = ({state, actions}) => {
@@ -103,12 +139,20 @@ const Homepage = ({state, actions}) => {
     //     paintCatArray.push(paintCat[item])
     //   }
 
-    let paintCatArray = paint_cat_arr
+    let paintCatArray = state.source.get('/painting_cat')
     return <Container>
         <HeroSection>
+            {/* <HeroOffer>
+                Up to -50%!
+            </HeroOffer> */}
             <h1>
-                Unique art pieces for your interior
+                Daydreaming art pieces for your interior!
             </h1>
+            <HeroButton onClick={()=>{
+                actions.router.set('/all-paintings')
+            }}>
+                View All
+            </HeroButton>
         </HeroSection>
         <ContainerMain>
             <h3>Categories</h3>
@@ -118,9 +162,10 @@ const Homepage = ({state, actions}) => {
                         return <CatItem key={painting.id} item={painting} />
                     }))
                 }
-            </Categories>
+
+            </Categories>   
+            <h3>About Us</h3>
             <About id="aboutSection" >
-                <h3>About Us</h3>
                 <AboutImg src={Kristina} />
                 <AboutTextCont>
                     <AboutText>
@@ -141,6 +186,7 @@ const Homepage = ({state, actions}) => {
                         </p>
                     </AboutText>
                 </AboutTextCont>
+                {/* <AboutImg src={Kristina} /> */}
             </About>
         </ContainerMain>
 

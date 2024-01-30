@@ -15,7 +15,7 @@ export const HamburgerIcon = ({ size, color, ...props }) => {
       {...props}
     >
       <title>Open menu</title>
-      <g fill="#FF4D00">
+      <g fill="#fc4523">
         <rect height="3" width="23" rx="1" ry="1" x=".5" y="2.5" />
         <rect height="3" width="23" rx="1" ry="1" x=".5" y="10.5" />
         <rect height="3" width="23" rx="1" ry="1" x=".5" y="18.5" />

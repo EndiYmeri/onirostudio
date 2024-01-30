@@ -18,7 +18,11 @@ const CatItem = ({ state, item }) => {
             <CatListItem  image={item.acf.category_image || media?.source_url}>
               <div>
                 <h1>{item.name || item.title.rendered}</h1>
-                <p>{item.count} Paintings</p>
+                {
+                  item.count > 0 ? 
+                  <p>{item.count} Paintings</p>
+                  : null
+                }
               </div>
             </CatListItem>
             {/* <ImgComp src={item.acf.category_image || media?.source_url} /> */}
@@ -32,7 +36,7 @@ export default connect(CatItem);
   
   const CatListItem  = styled.div`
     background-image: ${props => `url(${props.image})`};
-    background-size: auto;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: grid;
@@ -50,7 +54,7 @@ export default connect(CatItem);
       margin-bottom:5px;
     }
     p{
-      color: #FF4D00;
+      color: #fc4523;
       margin-top:5px;
       text-shadow: 0px 0px 20px black;
       font-weight:bold;

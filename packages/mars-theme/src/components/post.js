@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { connect, styled } from "frontity";
+import { connect, styled, Head } from "frontity";
 import List from "./list";
 import React from "react";
 import Link from "./link";
@@ -44,7 +44,6 @@ const Post = ({ state, actions, libraries }) => {
    if(data.isPostType){
       message = `Hello, I would like more information about this: https://onirostudio.com${state.router.link}`
     }
-    console.log(post, paintCat)
   useEffect(() => {
     actions.source.fetch("/");
     List.preload();
@@ -53,6 +52,16 @@ const Post = ({ state, actions, libraries }) => {
   let same = post.acf.primary_image === media.source_url
   // Load the post, but only if the data is ready.
   return data.isReady ? (
+    <>
+     <Head>
+        {/* <meta name="description" content={"this post"} /> */}
+        <meta property="og:site_name" content={post.title.rendered}/>
+        {/* <meta property="og:title" content={} /> */}
+        {/* <meta property="og:description" content="Programa de fiestas" /> */}
+        <meta property="og:image" itemprop="image" content={media.media_details.sizes.thumbnail.source_url }/>
+        <meta property="og:type" content="website" />
+        {/* <meta property="og:updated_time" content="1440432930" /> */}
+      </Head>
     <Container>
       <ContainerMain>
       <RightSide>
@@ -61,7 +70,7 @@ const Post = ({ state, actions, libraries }) => {
       </RightSide>
       <LeftSide>
         <div>
-          <SubTitle color="#FF4D00">
+          <SubTitle color="#fc4523">
             <StyledLink link={paintCat.link}>
              {paintCat.name}
             </StyledLink>
@@ -69,7 +78,18 @@ const Post = ({ state, actions, libraries }) => {
           <Title>{post.title.rendered}</Title>
           <InfoContainer>
             <SubTitle >{post.acf.dimensions}</SubTitle>
-            <SubTitle >{post.acf.price} Lek</SubTitle>
+
+            {
+              post.acf.has_offer?
+              <>
+                <SubTitle textDecoration="line-through" >{post.acf.price} Lek</SubTitle>
+                <SubTitle color="#fc4523">{post.acf.price_offer} Lek</SubTitle>
+              </>
+              :
+              <>
+                <SubTitle>{post.acf.price} Lek</SubTitle>
+              </>
+            }
           </InfoContainer>
         </div>
 
@@ -92,7 +112,7 @@ const Post = ({ state, actions, libraries }) => {
         )}
         {/* <ActionButtonsContainer>
           <ActionButton>DM</ActionButton>
-          <ActionButton><ReactWhatsapp number="+355672418595" message={message} element="span">WHATSAPP</ReactWhatsapp></ActionButton>
+          <ActionButton><ReactWhatsapp number="+355697329797" message={message} element="span">WHATSAPP</ReactWhatsapp></ActionButton>
         </ActionButtonsContainer> */}
       </LeftSide>
       </ContainerMain>
@@ -102,7 +122,9 @@ const Post = ({ state, actions, libraries }) => {
         {post?.acf?.extra_image ? <Image src={post?.acf?.extra_image} /> : null}
       </OtherImagesCont>
     </Container>
+    </>
   ) : null;
+  
 };
 
 export default connect(Post);
@@ -146,7 +168,7 @@ const LeftSide = styled.div`
   max-width: 400px;
 `
 const ActionButton = styled.button`
-  background-color: #FF4D00;
+  background-color: #fc4523;
   color: #FFFFFF;
   /* border-radius: 50px; */
   font-size: 18px;
@@ -164,8 +186,8 @@ const ActionButton = styled.button`
       color: #121A1C;
       font-weight: 900;
       background-color: transparent;
-      color: #FF4D00;
-      border:1px solid #FF4D00 ;
+      color: #fc4523;
+      border:1px solid #fc4523 ;
   }
  
 `
@@ -204,6 +226,8 @@ const SubTitle = styled.h3`
   // margin-bottom: 8px;
   color: ${props => props.color || "white" };
   font-size: 15px;
+  text-decoration-thickness: 2px;
+  text-decoration: ${props => props.textDecoration || "none" };
 `;
 
 const OtherImagesCont = styled.div`

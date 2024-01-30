@@ -40,6 +40,11 @@ const marsTheme = {
       closeMobileMenu: ({ state }) => {
         state.theme.isMobileMenuOpen = false;
       },
+      beforeSSR: async ({actions}) => {
+        await actions.source.fetch("/subscribe/")
+        await actions.source.fetch('/painting_cat')
+      },
+
     },
   },
   libraries: {
